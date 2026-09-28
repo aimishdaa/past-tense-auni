@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Traveler: The Past Tense Quest</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN for retro-futuristic icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Cyberpunk Neon Glow Effects */
+        .neon-border-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4), inset 0 0 15px rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(6, 182, 212, 0.6);
+        }
+
+        .neon-border-purple {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.6);
+        }
+
+        .neon-text-cyan {
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.8), 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+
+        .neon-text-amber {
+            text-shadow: 0 0 8px rgba(245, 158, 11, 0.8), 0 0 15px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Time Portal Grid Background */
+        .cyber-grid {
+            background-image: linear-gradient(to right, rgba(14, 116, 144, 0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(14, 116, 144, 0.1) 1px, transparent 1px);
+            background-size: 35px 35px;
+        }
+
+        /* Keyframe Animations */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .pulse-animation {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+
+        /* SVG Illustration Animations */
+        @keyframes rotateCw {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateCcw {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        @keyframes floatVector {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .spin-cw {
+            transform-origin: center;
+            animation: rotateCw 20s linear infinite;
+        }
+
+        .spin-ccw {
+            transform-origin: center;
+            animation: rotateCcw 15s linear infinite;
+        }
+
+        .float-anim {
+            animation: floatVector 3s ease-in-out infinite;
+        }
+
+        .scanline-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .scanline-effect::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="cyber-grid min-h-screen flex flex-col justify-between scanline-effect text-slate-100 selection:bg-cyan-500 selection:text-black">
+
+    <!-- TOP TELEMETRY BAR -->
+    <header class="w-full bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/30 p-4 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-400 flex items-center justify-center text-cyan-400 text-xl font-bold shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+                    <i class="fa-solid font-bold fa-clock-rotate-left"></i>
+                </div>
+                <div>
+                    <h1 class="font-orbitron font-extrabold text-lg sm:text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400">
+                        TIME TRAVELER
+                    </h1>
+                    <p class="text-xs text-cyan-400/80 font-semibold uppercase tracking-widest">The Past Tense Quest</p>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="flex items-center gap-4 sm:gap-6 text-sm">
+                <!-- Level Era Badge -->
+                <div class="hidden md:flex flex-col items-center">
+                    <span class="text-xs text-slate-400 uppercase font-bold">Current Era</span>
+                    <span id="current-era-display" class="font-orbitron font-semibold text-cyan-300">Rome (27 BC)</span>
+                </div>
+
+                <!-- Streak Counter -->
+                <div class="flex flex-col items-center">
+                    <span class="text-xs text-slate-400 uppercase font-bold">Streak</span>
+                    <div class="flex items-center gap-1 font-orbitron font-bold text-amber-400">
+                        <i class="fa-solid fa-bolt animate-bounce"></i>
+                        <span id="streak-display">0x</span>
+                    </div>
+                </div>
+
+                <!-- Score Counter -->
+                <div class="flex flex-col items-center">
+                    <span class="text-xs text-slate-400 uppercase font-bold">Chronos Score</span>
+                    <span id="score-display" class="font-orbitron font-extrabold text-xl text-cyan-400 neon-text-cyan">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIME MACHINE ENERGY GAUGE -->
+        <div class="max-w-6xl mx-auto mt-3">
+            <div class="flex justify-between items-center text-xs mb-1 font-semibold text-slate-300">
+                <span class="flex items-center gap-1"><i class="fa-solid fa-atom text-cyan-400"></i> Time Portal Energy Matrix</span>
+                <span id="energy-percentage" class="font-orbitron text-cyan-400">50%</span>
+            </div>
+            <div class="w-full h-3 bg-slate-950 rounded-full border border-slate-700/80 p-0.5 overflow-hidden">
+                <div id="energy-bar" class="h-full bg-gradient-to-r from-red-500 via-amber-400 to-cyan-400 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]" style="width: 50%;"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-4xl w-full mx-auto p-4 my-6 flex-grow flex flex-col justify-center">
+
+        <!-- 1. START SCREEN -->
+        <section id="start-screen" class="bg-slate-900/90 rounded-2xl p-6 sm:p-10 neon-border-cyan backdrop-blur-xl text-center space-y-6 transform transition-all duration-300">
+            <!-- Custom Animated SVG Time Portal Illustration -->
+            <div class="w-48 h-48 mx-auto relative flex items-center justify-center float-anim">
+                <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_0_20px_rgba(6,182,212,0.6)]" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="portalGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8"/>
+                            <stop offset="60%" stop-color="#3b82f6" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#22d3ee"/>
+                            <stop offset="100%" stop-color="#818cf8"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Background Glow -->
+                    <circle cx="100" cy="100" r="90" fill="url(#portalGlow)"/>
+                    <!-- Outer Tech Ring -->
+                    <circle cx="100" cy="100" r="82" fill="none" stroke="#0e7490" stroke-width="2" stroke-dasharray="6, 6"/>
+                    <circle class="spin-cw" cx="100" cy="100" r="76" fill="none" stroke="url(#ringGrad1)" stroke-width="3" stroke-dasharray="40 20 10 20"/>
+                    <circle class="spin-ccw" cx="100" cy="100" r="64" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="30 15 5 15"/>
+                    <!-- Inner Core -->
+                    <circle cx="100" cy="100" r="45" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="2"/>
+                    <!-- Hourglass / Temporal Node SVG Graphic -->
+                    <polygon points="82,75 118,75 100,98" fill="#22d3ee" opacity="0.9"/>
+                    <polygon points="82,125 118,125 100,102" fill="#38bdf8" opacity="0.9"/>
+                    <circle cx="100" cy="100" r="6" fill="#f43f5e" class="animate-ping"/>
+                    <circle cx="100" cy="100" r="4" fill="#ffffff"/>
+                </svg>
+            </div>
+
+            <div class="space-y-2">
+                <h2 class="font-orbitron text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-indigo-200 to-purple-400">
+                    REPAIR THE TIMELINE
+                </h2>
+                <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                    A temporal anomaly has disrupted historical events! Journey through 3 distinct time eras by mastering <strong>Regular Verbs</strong>, <strong>Irregular Verbs</strong>, and <strong>Past Simple vs Continuous</strong> tenses to power up your time core.
+                </p>
+            </div>
+
+            <!-- Mission Directives -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left my-6">
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl">
+                    <div class="text-cyan-400 font-bold mb-1 flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-xs">1</span>
+                        Era I: Regular Verbs
+                    </div>
+                    <p class="text-xs text-slate-400">Select correct past forms with '-ed' rules in Ancient Rome.</p>
+                </div>
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl">
+                    <div class="text-purple-400 font-bold mb-1 flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-purple-950 border border-purple-400 flex items-center justify-center text-xs">2</span>
+                        Era II: Irregular Verbs
+                    </div>
+                    <p class="text-xs text-slate-400">Type accurate irregular past tense forms in Medieval Times.</p>
+                </div>
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl">
+                    <div class="text-amber-400 font-bold mb-1 flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-amber-950 border border-amber-400 flex items-center justify-center text-xs">3</span>
+                        Era III: Sentence Fixer
+                    </div>
+                    <p class="text-xs text-slate-400">Combine Past Continuous & Simple tense in Victorian London.</p>
+                </div>
+            </div>
+
+            <!-- Start Button -->
+            <button id="start-btn" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-orbitron font-extrabold text-lg rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.6)] transform hover:scale-105 transition-all duration-200 cursor-pointer">
+                <i class="fa-solid fa-play mr-2"></i> INITIALIZE CHRONO DRIVE
+            </button>
+        </section>
+
+        <!-- 2. GAME CARD SCREEN -->
+        <section id="game-screen" class="hidden bg-slate-900/90 rounded-2xl p-6 sm:p-8 neon-border-cyan backdrop-blur-xl space-y-6 transition-all duration-300">
+            
+            <!-- Question Level & Header -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                <div class="flex items-center gap-2">
+                    <span id="level-badge" class="px-3 py-1 rounded-full text-xs font-orbitron font-bold uppercase bg-cyan-950 text-cyan-300 border border-cyan-500/50">
+                        Level 1 • Ancient Rome
+                    </span>
+                    <span id="question-counter" class="text-xs text-slate-400 font-semibold">
+                        Question 1 of 15
+                    </span>
+                </div>
+                <!-- Progress Indicator -->
+                <div class="text-xs text-slate-400 font-bold flex items-center gap-1">
+                    <i class="fa-regular fa-clock text-cyan-400"></i>
+                    <span id="timer-display">00:00</span>
+                </div>
+            </div>
+
+            <!-- DYNAMIC ERA ILLUSTRATION BANNER CONTAINER -->
+            <div id="era-illustration-container" class="w-full h-28 sm:h-36 rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 flex items-center justify-center relative shadow-inner">
+                <!-- SVG Era illustration will be dynamically rendered here -->
+            </div>
+
+            <!-- Prompt & Question Content Container -->
+            <div id="question-box" class="space-y-6">
+                <!-- Prompt Heading -->
+                <div class="space-y-2">
+                    <h3 id="question-instruction" class="text-xs font-bold uppercase tracking-wider text-cyan-400">
+                        Convert Present Tense to Past Tense
+                    </h3>
+                    <div id="question-prompt" class="text-xl sm:text-2xl font-semibold text-slate-100 leading-snug">
+                        Loading temporal question data...
+                    </div>
+                </div>
+
+                <!-- DYNAMIC ANSWER AREA (Multiple Choice or Input) -->
+                <div id="answer-container" class="space-y-3 pt-2">
+                    <!-- Options or Input field will be dynamically injected here -->
+                </div>
+            </div>
+
+            <!-- FEEDBACK AREA -->
+            <div id="feedback-card" class="hidden p-4 rounded-xl border transition-all duration-300 space-y-2">
+                <div class="flex items-center gap-2 font-orbitron font-bold text-base" id="feedback-title">
+                    <!-- Icon + Text (Correct / Incorrect) -->
+                </div>
+                <p id="feedback-explanation" class="text-sm text-slate-200 leading-relaxed">
+                    <!-- Grammar Rule explanation -->
+                </p>
+                <div class="pt-2 flex justify-end">
+                    <button id="next-btn" class="px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-orbitron font-bold text-sm rounded-lg shadow-md transition-all flex items-center gap-2">
+                        CONTINUE JUMP <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 3. VICTORY / SUMMARY SCREEN -->
+        <section id="victory-screen" class="hidden bg-slate-900/90 rounded-2xl p-6 sm:p-10 neon-border-purple backdrop-blur-xl text-center space-y-8 transition-all duration-300">
+            <!-- Custom SVG Chrono Crystal Trophy Illustration -->
+            <div class="w-48 h-48 mx-auto relative flex items-center justify-center float-anim">
+                <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_0_25px_rgba(168,85,247,0.7)]" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="trophyGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.8"/>
+                            <stop offset="70%" stop-color="#06b6d4" stop-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#090d16" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f43f5e"/>
+                            <stop offset="50%" stop-color="#a855f7"/>
+                            <stop offset="100%" stop-color="#38bdf8"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="85" fill="url(#trophyGlow)"/>
+                    <!-- Orbiting Orbital Rings -->
+                    <ellipse class="spin-cw" cx="100" cy="100" rx="75" ry="25" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="15 10"/>
+                    <ellipse class="spin-ccw" cx="100" cy="100" rx="75" ry="25" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="20 15" transform="rotate(60 100 100)"/>
+                    <!-- Pedestal -->
+                    <path d="M70,160 L130,160 L120,145 L80,145 Z" fill="#1e293b" stroke="#a855f7" stroke-width="2"/>
+                    <path d="M85,145 L115,145 L110,125 L90,125 Z" fill="#0f172a" stroke="#06b6d4" stroke-width="2"/>
+                    <!-- Glowing Time Crystal Trophy -->
+                    <polygon points="100,45 125,85 115,125 85,125 75,85" fill="url(#crystalGrad)" stroke="#ffffff" stroke-width="1.5"/>
+                    <polygon points="100,45 100,125 125,85" fill="#ffffff" fill-opacity="0.2"/>
+                    <!-- Sparkles -->
+                    <circle cx="65" cy="60" r="3" fill="#fbbf24" class="animate-ping"/>
+                    <circle cx="135" cy="70" r="2.5" fill="#38bdf8" class="animate-ping"/>
+                    <circle cx="100" cy="30" r="4" fill="#f43f5e"/>
+                </svg>
+            </div>
+
+            <div class="space-y-2">
+                <h2 class="font-orbitron text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-cyan-300 to-amber-300">
+                    TIMELINE RESTORED!
+                </h2>
+                <p class="text-slate-300 text-base">
+                    All temporal anomalies corrected. Your past tense accuracy preserved history!
+                </p>
+            </div>
+
+            <!-- Rank Title Display -->
+            <div class="bg-slate-950/80 border border-purple-500/40 p-6 rounded-xl max-w-md mx-auto space-y-1 shadow-lg">
+                <div class="text-xs text-purple-400 font-bold uppercase tracking-widest">Achieved Temporal Rank</div>
+                <div id="rank-title" class="font-orbitron font-black text-2xl text-amber-400 neon-text-amber">
+                    MASTER OF TIME
+                </div>
+            </div>
+
+            <!-- Final Stats Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-xs text-slate-400 font-bold">Total Score</div>
+                    <div id="final-score" class="font-orbitron text-xl font-bold text-cyan-400 mt-1">0</div>
+                </div>
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-xs text-slate-400 font-bold">Accuracy</div>
+                    <div id="final-accuracy" class="font-orbitron text-xl font-bold text-emerald-400 mt-1">100%</div>
+                </div>
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-xs text-slate-400 font-bold">Max Streak</div>
+                    <div id="final-streak" class="font-orbitron text-xl font-bold text-amber-400 mt-1">0x</div>
+                </div>
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-xs text-slate-400 font-bold">Time Taken</div>
+                    <div id="final-time" class="font-orbitron text-xl font-bold text-indigo-400 mt-1">00:00</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <button id="restart-btn" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-orbitron font-bold rounded-xl shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-all cursor-pointer">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> REPLAY MISSION
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full bg-slate-950 border-t border-slate-800/80 py-4 text-center text-xs text-slate-500">
+        <p>Time Traveler: The Past Tense Quest • Interactive English Grammar Game</p>
+    </footer>
+
+    <script>
+        /* JavaScript Game Logic & Controller */
+
+        const eraIllustrations = {
+            1: `<!-- Era 1: Ancient Rome SVG -->
+                <svg viewBox="0 0 500 140" class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <linearGradient id="romeSky" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#082f49"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="500" height="140" fill="url(#romeSky)"/>
+                    <g stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1">
+                        <line x1="0" y1="120" x2="500" y2="120"/>
+                        <line x1="0" y1="130" x2="500" y2="130"/>
+                    </g>
+                    <!-- Roman Temple Pantheon Columns Silhouette with Cyan Neon Accents -->
+                    <g fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1.5">
+                        <path d="M160,115 L340,115 L340,120 L160,120 Z"/>
+                        <path d="M170,45 L330,45 L250,15 Z"/> <!-- Triangular Pediment -->
+                        <rect x="180" y="48" width="12" height="67"/>
+                        <rect x="210" y="48" width="12" height="67"/>
+                        <rect x="240" y="48" width="12" height="67"/>
+                        <rect x="270" y="48" width="12" height="67"/>
+                        <rect x="300" y="48" width="12" height="67"/>
+                    </g>
+                    <!-- Holographic Roman Laurel Wreath -->
+                    <g transform="translate(250,65)" fill="none" stroke="#22d3ee" stroke-width="2">
+                        <path d="M-25,15 C-40,0 -30,-25 -10,-30 C-20,-15 -15,5 -25,15 Z" fill="#0891b2" fill-opacity="0.4"/>
+                        <path d="M25,15 C40,0 30,-25 10,-30 C20,-15 15,5 25,15 Z" fill="#0891b2" fill-opacity="0.4"/>
+                        <circle cx="0" cy="-25" r="3" fill="#f59e0b"/>
+                    </g>
+                    <text x="250" y="132" text-anchor="middle" fill="#38bdf8" font-family="'Orbitron', sans-serif" font-size="10" font-weight="bold" letter-spacing="3">ANCIENT ROME • 27 BC</text>
+                </svg>`,
+            2: `<!-- Era 2: Medieval Era SVG -->
+                <svg viewBox="0 0 500 140" class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <linearGradient id="medSky" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#3b0764"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="500" height="140" fill="url(#medSky)"/>
+                    <!-- Castle Battlements Silhouette -->
+                    <g fill="#581c87" fill-opacity="0.4" stroke="#c084fc" stroke-width="1.5">
+                        <path d="M120,120 L120,50 L140,50 L140,60 L150,60 L150,50 L170,50 L170,60 L180,60 L180,50 L200,50 L200,120 Z"/>
+                        <path d="M300,120 L300,50 L320,50 L320,60 L330,60 L330,50 L350,50 L350,60 L360,60 L360,50 L380,50 L380,120 Z"/>
+                        <rect x="200" y="70" width="100" height="50"/>
+                        <path d="M235,120 C235,95 265,95 265,120 Z" fill="#0f172a" stroke="#a855f7"/>
+                    </g>
+                    <!-- Floating Magic Sword & Shield Motif -->
+                    <g transform="translate(250,50)" fill="none" stroke="#e9d5ff" stroke-width="2">
+                        <path d="M0,-30 L0,25" stroke="#a855f7" stroke-width="3"/>
+                        <path d="M-12,-15 L12,-15" stroke="#f43f5e" stroke-width="2"/>
+                        <polygon points="-18,-5 0,30 18,-5 0,-15" fill="#7e22ce" fill-opacity="0.5" stroke="#c084fc"/>
+                    </g>
+                    <text x="250" y="132" text-anchor="middle" fill="#c084fc" font-family="'Orbitron', sans-serif" font-size="10" font-weight="bold" letter-spacing="3">MEDIEVAL KINGDOM • 1215 AD</text>
+                </svg>`,
+            3: `<!-- Era 3: Victorian London SVG -->
+                <svg viewBox="0 0 500 140" class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <linearGradient id="vicSky" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#451a03"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="500" height="140" fill="url(#vicSky)"/>
+                    <!-- Big Ben Clock Tower & Steampunk Skyline -->
+                    <g fill="#78350f" fill-opacity="0.4" stroke="#f59e0b" stroke-width="1.5">
+                        <rect x="225" y="30" width="50" height="90"/>
+                        <polygon points="225,30 250,5 275,30"/>
+                        <circle cx="250" cy="52" r="14" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+                        <line x1="250" y1="52" x2="250" y2="43" stroke="#fbbf24" stroke-width="2"/>
+                        <line x1="250" y1="52" x2="256" y2="52" stroke="#fbbf24" stroke-width="2"/>
+                    </g>
+                    <!-- Steampunk Gears Motif -->
+                    <g transform="translate(150,60)" class="spin-cw">
+                        <circle cx="0" cy="0" r="22" fill="none" stroke="#d97706" stroke-width="3" stroke-dasharray="8 4"/>
+                        <circle cx="0" cy="0" r="8" fill="#1e293b" stroke="#f59e0b"/>
+                    </g>
+                    <g transform="translate(350,60)" class="spin-ccw">
+                        <circle cx="0" cy="0" r="26" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="10 5"/>
+                        <circle cx="0" cy="0" r="10" fill="#1e293b" stroke="#fbbf24"/>
+                    </g>
+                    <text x="250" y="132" text-anchor="middle" fill="#f59e0b" font-family="'Orbitron', sans-serif" font-size="10" font-weight="bold" letter-spacing="3">VICTORIAN LONDON • 1888 AD</text>
+                </svg>`
+        };
+
+        // Audio Synthesizer using Web Audio API for zero external sound file dependencies
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'correct') {
+                // High-pitched pleasant chime
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'wrong') {
+                // Low buzz tone
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'click') {
+                // Short subtle tap
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(400, now);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } else if (type === 'win') {
+                // Major arpeggio fan-fare
+                const freqs = [523.25, 659.25, 783.99, 1046.50];
+                freqs.forEach((freq, idx) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(freq, now + idx * 0.12);
+                    g.gain.setValueAtTime(0.2, now + idx * 0.12);
+                    g.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.12 + 0.3);
+                    o.start(now + idx * 0.12);
+                    o.stop(now + idx * 0.12 + 0.3);
+                });
+            }
+        }
+
+        // Comprehensive Question Database (15 questions across 3 distinct eras/levels)
+        const questionDatabase = [
+            // LEVEL 1: Regular Verbs (Multiple Choice) - Ancient Rome
+            {
+                level: 1,
+                era: "Ancient Rome (27 BC)",
+                type: "mc",
+                instruction: "Convert Present Tense to Regular Past Tense",
+                prompt: "Julius Caesar ____ (walk) through the forum to address the Senate.",
+                options: ["walked", "walkes", "walking", "walkt"],
+                correctAnswer: "walked",
+                explanation: "Regular verbs form the simple past by adding '-ed' to the base form (walk -> walked)."
+            },
+            {
+                level: 1,
+                era: "Ancient Rome (27 BC)",
+                type: "mc",
+                instruction: "Convert Present Tense to Regular Past Tense",
+                prompt: "The Roman scholars ____ (study) philosophy late into the night.",
+                options: ["studied", "studyed", "studid", "studyied"],
+                correctAnswer: "studied",
+                explanation: "For verbs ending in a consonant + 'y', change the 'y' to 'i' and add '-ed' (study -> studied)."
+            },
+            {
+                level: 1,
+                era: "Ancient Rome (27 BC)",
+                type: "mc",
+                instruction: "Convert Present Tense to Regular Past Tense",
+                prompt: "The gladiator ____ (drop) his shield during the intense battle.",
+                options: ["dropped", "droped", "dropen", "droping"],
+                correctAnswer: "dropped",
+                explanation: "For single-syllable verbs ending in vowel + consonant (drop), double the final consonant before adding '-ed' (dropped)."
+            },
+            {
+                level: 1,
+                era: "Ancient Rome (27 BC)",
+                type: "mc",
+                instruction: "Convert Present Tense to Regular Past Tense",
+                prompt: "The children ____ (play) near the famous Aqueduct.",
+                options: ["played", "plaied", "playd", "playen"],
+                correctAnswer: "played",
+                explanation: "For verbs ending in a vowel + 'y' (play), simply add '-ed' (played) without changing the 'y'."
+            },
+            {
+                level: 1,
+                era: "Ancient Rome (27 BC)",
+                type: "mc",
+                instruction: "Convert Present Tense to Regular Past Tense",
+                prompt: "The servants ____ (clean) the marble hall after the feast.",
+                options: ["cleaned", "cleanen", "cleand", "cleanes"],
+                correctAnswer: "cleaned",
+                explanation: "'Clean' is a standard regular verb; simply add '-ed' to form 'cleaned'."
+            },
+
+            // LEVEL 2: Irregular Verbs (Fill-in-the-Blank) - Medieval Era
+            {
+                level: 2,
+                era: "Medieval Era (1215 AD)",
+                type: "fill",
+                instruction: "Type the Correct Irregular Past Tense Form",
+                prompt: "Yesterday, the knight ____ (go) to the royal castle.",
+                correctAnswer: "went",
+                explanation: "'Go' is an irregular verb. Its past tense form is 'went', not 'goed'."
+            },
+            {
+                level: 2,
+                era: "Medieval Era (1215 AD)",
+                type: "fill",
+                instruction: "Type the Correct Irregular Past Tense Form",
+                prompt: "The blacksmith ____ (buy) iron to forge new dragon armor.",
+                correctAnswer: "bought",
+                explanation: "'Buy' is an irregular verb. The past tense form is 'bought'."
+            },
+            {
+                level: 2,
+                era: "Medieval Era (1215 AD)",
+                type: "fill",
+                instruction: "Type the Correct Irregular Past Tense Form",
+                prompt: "The wise wizard ____ (teach) the young apprentice ancient alchemy.",
+                correctAnswer: "taught",
+                explanation: "'Teach' is irregular. The past tense form is 'taught' (not 'teached')."
+            },
+            {
+                level: 2,
+                era: "Medieval Era (1215 AD)",
+                type: "fill",
+                instruction: "Type the Correct Irregular Past Tense Form",
+                prompt: "The king ____ (write) a royal decree for the realm.",
+                correctAnswer: "wrote",
+                explanation: "'Write' is an irregular verb. The past simple tense form is 'wrote'."
+            },
+            {
+                level: 2,
+                era: "Medieval Era (1215 AD)",
+                type: "fill",
+                instruction: "Type the Correct Irregular Past Tense Form",
+                prompt: "The carrier pigeon ____ (fly) across the kingdom with urgent news.",
+                correctAnswer: "flew",
+                explanation: "'Fly' is irregular. The past tense form is 'flew'."
+            },
+
+            // LEVEL 3: Past Simple vs. Past Continuous (Multiple Choice) - Victorian London
+            {
+                level: 3,
+                era: "Victorian London (1888 AD)",
+                type: "mc",
+                instruction: "Sentence Fixer: Past Simple vs. Past Continuous",
+                prompt: "While Detective Holmes ____ (read) an ancient map, the temporal rift suddenly ____ (open).",
+                options: [
+                    "was reading / opened",
+                    "read / was opening",
+                    "was reading / was opening",
+                    "read / opened"
+                ],
+                correctAnswer: "was reading / opened",
+                explanation: "Use Past Continuous ('was reading') for an ongoing background action interrupted by a shorter action in Past Simple ('opened')."
+            },
+            {
+                level: 3,
+                era: "Victorian London (1888 AD)",
+                type: "mc",
+                instruction: "Sentence Fixer: Past Simple vs. Past Continuous",
+                prompt: "The inventor ____ (work) in his laboratory when the power went out.",
+                options: ["was working", "worked", "is working", "works"],
+                correctAnswer: "was working",
+                explanation: "'When' introduces a past simple interrupting event, while the ongoing action requires Past Continuous ('was working')."
+            },
+            {
+                level: 3,
+                era: "Victorian London (1888 AD)",
+                type: "mc",
+                instruction: "Sentence Fixer: Past Simple vs. Past Continuous",
+                prompt: "When the time capsule landed in London, it ____ (rain) heavily.",
+                options: ["was raining", "rained", "is raining", "will rain"],
+                correctAnswer: "was raining",
+                explanation: "'It was raining' describes the atmospheric ongoing condition occurring at the moment of landing."
+            },
+            {
+                level: 3,
+                era: "Victorian London (1888 AD)",
+                type: "mc",
+                instruction: "Sentence Fixer: Past Simple vs. Past Continuous",
+                prompt: "They ____ (discover) a mysterious clockwork key while they were exploring the cellar.",
+                options: ["discovered", "were discovering", "discover", "had discover"],
+                correctAnswer: "discovered",
+                explanation: "'While' introduces the continuous background action ('were exploring'), so the completed action uses Past Simple ('discovered')."
+            },
+            {
+                level: 3,
+                era: "Victorian London (1888 AD)",
+                type: "mc",
+                instruction: "Sentence Fixer: Past Simple vs. Past Continuous",
+                prompt: "While the clock tower was striking midnight, the portal ____ (expand) rapidly.",
+                options: ["expanded", "was expand", "expands", "expand"],
+                correctAnswer: "expanded",
+                explanation: "'Expanded' in Past Simple marks the specific single event occurring during the striking clock tower continuous timeframe."
+            }
+        ];
+
+        // Game State Variables
+        let currentIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let maxStreak = 0;
+        let energy = 50; // Ranges 0 to 100
+        let correctCount = 0;
+        let timerSeconds = 0;
+        let timerInterval = null;
+
+        // DOM Element Cache
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const victoryScreen = document.getElementById('victory-screen');
+
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const currentEraDisplay = document.getElementById('current-era-display');
+        const streakDisplay = document.getElementById('streak-display');
+        const scoreDisplay = document.getElementById('score-display');
+        const energyBar = document.getElementById('energy-bar');
+        const energyPercentage = document.getElementById('energy-percentage');
+
+        const levelBadge = document.getElementById('level-badge');
+        const questionCounter = document.getElementById('question-counter');
+        const timerDisplay = document.getElementById('timer-display');
+        const questionInstruction = document.getElementById('question-instruction');
+        const questionPrompt = document.getElementById('question-prompt');
+        const answerContainer = document.getElementById('answer-container');
+
+        const feedbackCard = document.getElementById('feedback-card');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackExplanation = document.getElementById('feedback-explanation');
+
+        // Event Listeners
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', startGame);
+        nextBtn.addEventListener('click', handleNextQuestion);
+
+        function startGame() {
+            playSound('click');
+            // Reset state
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            maxStreak = 0;
+            energy = 50;
+            correctCount = 0;
+            timerSeconds = 0;
+
+            // UI Reset
+            updateStatsUI();
+            
+            startScreen.classList.add('hidden');
+            victoryScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+
+            // Start Timer
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+                const secs = (timerSeconds % 60).toString().padStart(2, '0');
+                timerDisplay.textContent = `${mins}:${secs}`;
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questionDatabase[currentIndex];
+
+            // Update Era Graphic Illustration Banner
+            const container = document.getElementById('era-illustration-container');
+            if (container && eraIllustrations[q.level]) {
+                container.innerHTML = eraIllustrations[q.level];
+            }
+
+            // Reset feedback card
+            feedbackCard.classList.add('hidden');
+            feedbackCard.className = "hidden p-4 rounded-xl border transition-all duration-300 space-y-2";
+
+            // Update Headers
+            currentEraDisplay.textContent = q.era;
+            levelBadge.textContent = `Level ${q.level} • ${q.era}`;
+            questionCounter.textContent = `Question ${currentIndex + 1} of ${questionDatabase.length}`;
+            questionInstruction.textContent = q.instruction;
+            questionPrompt.innerHTML = q.prompt;
+
+            // Clear previous container content
+            answerContainer.innerHTML = '';
+
+            if (q.type === 'mc') {
+                // Render Multiple Choice Buttons
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-3";
+
+                q.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn p-4 rounded-xl bg-slate-950/70 border border-slate-700/80 hover:border-cyan-400 hover:bg-slate-800/80 text-left text-base sm:text-lg font-semibold text-slate-200 transition-all cursor-pointer flex items-center justify-between";
+                    btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-500"></i>`;
+                    btn.addEventListener('click', () => checkAnswer(opt, btn));
+                    grid.appendChild(btn);
+                });
+
+                answerContainer.appendChild(grid);
+            } else if (q.type === 'fill') {
+                // Render Fill-in-the-blank input form
+                const form = document.createElement('form');
+                form.className = "flex flex-col sm:flex-row gap-3 pt-2";
+                
+                const input = document.createElement('input');
+                input.type = "text";
+                input.placeholder = "Type past tense form here...";
+                input.className = "flex-grow p-4 rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 focus:outline-none text-cyan-300 font-orbitron text-lg placeholder-slate-500";
+                input.autocomplete = "off";
+
+                const submitBtn = document.createElement('button');
+                submitBtn.type = "submit";
+                submitBtn.className = "px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-orbitron font-bold rounded-xl shadow-lg transition-all cursor-pointer";
+                submitBtn.innerHTML = `SUBMIT <i class="fa-solid fa-paper-plane ml-1"></i>`;
+
+                form.appendChild(input);
+                form.appendChild(submitBtn);
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    checkAnswer(input.value, submitBtn);
+                });
+
+                answerContainer.appendChild(form);
+                setTimeout(() => input.focus(), 100);
+            }
+        }
+
+        function checkAnswer(userAnswer, element) {
+            const q = questionDatabase[currentIndex];
+            
+            // Format check (case insensitive & stripped whitespace)
+            const cleanUser = userAnswer.toString().trim().toLowerCase();
+            const cleanCorrect = q.correctAnswer.trim().toLowerCase();
+            const isCorrect = cleanUser === cleanCorrect;
+
+            // Disable all inputs in container
+            const allButtons = answerContainer.querySelectorAll('button, input');
+            allButtons.forEach(el => el.disabled = true);
+
+            // Audio & Feedback Logic
+            if (isCorrect) {
+                playSound('correct');
+                correctCount++;
+                streak++;
+                if (streak > maxStreak) maxStreak = streak;
+
+                // Calculate multiplier score
+                let multiplier = 1;
+                if (streak >= 5) multiplier = 3;
+                else if (streak >= 3) multiplier = 2;
+                else if (streak >= 2) multiplier = 1.5;
+
+                const addedScore = Math.round(100 * multiplier);
+                score += addedScore;
+
+                // Energy Boost
+                energy = Math.min(100, energy + 15);
+
+                // Highlight correct styling
+                if (element && element.tagName === 'BUTTON' && q.type === 'mc') {
+                    element.classList.remove('bg-slate-950/70', 'border-slate-700/80');
+                    element.classList.add('bg-emerald-950/80', 'border-emerald-400', 'text-emerald-300', 'shadow-[0_0_15px_rgba(52,211,153,0.4)]');
+                    element.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400";
+                }
+
+                // Show Feedback Card
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> <span class="text-emerald-400">CORRECT JUMP! (+${addedScore} PTS)</span>`;
+                feedbackCard.classList.add('bg-emerald-950/40', 'border-emerald-500/50');
+
+            } else {
+                playSound('wrong');
+                streak = 0; // Reset streak
+                energy = Math.max(0, energy - 20); // Penalty
+
+                // Highlight wrong styling
+                if (element && element.tagName === 'BUTTON' && q.type === 'mc') {
+                    element.classList.remove('bg-slate-950/70', 'border-slate-700/80');
+                    element.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-300');
+                    element.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-400";
+                }
+
+                // Highlight correct option if MC
+                if (q.type === 'mc') {
+                    const buttons = answerContainer.querySelectorAll('.option-btn');
+                    buttons.forEach(btn => {
+                        if (btn.textContent.trim().toLowerCase().includes(cleanCorrect)) {
+                            btn.classList.add('bg-emerald-950/80', 'border-emerald-400', 'text-emerald-300');
+                        }
+                    });
+                }
+
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i> <span class="text-rose-400">TEMPORAL ERROR!</span>`;
+                feedbackCard.classList.add('bg-rose-950/40', 'border-rose-500/50');
+            }
+
+            feedbackExplanation.innerHTML = `<strong>Answer:</strong> <span class="text-cyan-300 font-bold">${q.correctAnswer}</span><br>${q.explanation}`;
+            feedbackCard.classList.remove('hidden');
+
+            updateStatsUI();
+        }
+
+        function updateStatsUI() {
+            scoreDisplay.textContent = score;
+            streakDisplay.textContent = `${streak}x`;
+            energyBar.style.width = `${energy}%`;
+            energyPercentage.textContent = `${energy}%`;
+
+            // Dynamic color for energy bar based on energy level
+            if (energy < 30) {
+                energyBar.className = "h-full bg-gradient-to-r from-red-600 to-rose-500 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(244,63,94,0.8)]";
+            } else if (energy < 70) {
+                energyBar.className = "h-full bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(245,158,11,0.8)]";
+            } else {
+                energyBar.className = "h-full bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(6,182,212,0.8)]";
+            }
+        }
+
+        function handleNextQuestion() {
+            playSound('click');
+            currentIndex++;
+
+            if (currentIndex < questionDatabase.length) {
+                loadQuestion();
+            } else {
+                showVictoryScreen();
+            }
+        }
+
+        function showVictoryScreen() {
+            clearInterval(timerInterval);
+            playSound('win');
+
+            gameScreen.classList.add('hidden');
+            victoryScreen.classList.remove('hidden');
+
+            const totalQuestions = questionDatabase.length;
+            const accuracy = Math.round((correctCount / totalQuestions) * 100);
+
+            // Determine Time Traveler Rank
+            let rank = "TIME NOVICE";
+            if (accuracy >= 90 && score >= 1500) {
+                rank = "MASTER OF TIME";
+            } else if (accuracy >= 75) {
+                rank = "CHRONO NAVIGATOR";
+            } else if (accuracy >= 60) {
+                rank = "TEMPORAL EXPLORER";
+            } else {
+                rank = "TIME CADET";
+            }
+
+            document.getElementById('rank-title').textContent = rank;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+            document.getElementById('final-streak').textContent = `${maxStreak}x`;
+
+            const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+            const secs = (timerSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('final-time').textContent = `${mins}:${secs}`;
+        }
+    </script>
+</body>
+</html>
